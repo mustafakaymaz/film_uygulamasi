@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Film Sitesi</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+</head>
+<body>
+	<div class="container">
+		<h1>Film Sitesi</h1>
+		<hr>
+		<h2>Film Kaydetme Sayfasi</h2>
+
+		<form action="#" th:action="@{/filmKaydet}" th:object="${filmler}"
+			method="POST">
+			<input type="text" th:field="*{ad}"
+				placeholder="Film Adi" class="form-control mb-4 col-4">
+				
+				<input type="text" th:field="*{yayinYili}"
+				placeholder="Film Yayin Yili" class="form-control mb-4 col-4">
+				
+				<input type="text" th:field="*{tur}"
+				placeholder="Film Turu" class="form-control mb-4 col-4">
+				
+				<input type="text" th:field="*{model}"
+				placeholder="Film Model" class="form-control mb-4 col-4">
+				
+				<input type="text" th:field="*{aciklama}"
+				placeholder="Film Aciklama" class="form-control mb-4 col-4">
+				
+				<select th:field="*{dilSecenekleri}" class="form-control mb-4 col-4">
+   					 <option value="Türkce">Türkce</option>
+   					 <option value="Ingilizce">İngilizce</option>
+				</select>
+				
+				<button type="submit" class="btn btn-info col-2"> Fİlmi Kaydet</button>
+		</form>
+		
+		<hr>
+		
+		<a th:href = "@{/}"> Film Listesine Geri Don</a>
+	</div>
+</body>
+</html>

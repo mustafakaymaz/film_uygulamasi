@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Film Uygulamasi</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+	
+</head>
+<body>
+
+	<div class="container my-2">
+	<h1>Film Listesi</h1>
+	
+	<a th:href = "@{/filmFormunuGoster}" class="btn btn-primary btn-sm mb-3"> Film Ekle </a>
+		<div>&nbsp;</div>
+		<div> 
+			<form th:action="@{/yeniFilmFormu}">
+			    Arama:
+				<input type="text", name="arama" class="form-control mb-4 col-4"/>
+				&nbsp;
+				<input type="submit" value="Arama" class="btn btn-primary">
+				&nbsp;
+				<input type="button" value="Temizle"class="btn btn-danger">
+			</form>
+		</div>
+		<div>&nbsp;</div>
+		<table border="1" class = "table table-striped table-responsive-md">
+			<thead>
+				<tr>
+					<th>
+						<a th:href="@{'/page/' + ${currentPage} + '?sortField=ad&sortDir=' + ${reverseSortDir}}">
+							Film Adi</a>
+					</th>
+					<th>
+					<a th:href="@{'/page/' + ${currentPage} + '?sortField=yayinYili&sortDir=' + ${reverseSortDir}}">
+							Film Yayin Yili</a>
+					</th>
+					<th>
+					<a th:href="@{'/page/' + ${currentPage} + '?sortField=tur&sortDir=' + ${reverseSortDir}}">
+							Film Turu</a>
+					</th>
+					<th>
+					<a th:href="@{'/page/' + ${currentPage} + '?sortField=model&sortDir=' + ${reverseSortDir}}">
+							Film Model</a>
+					</th>
+					<th>
+					<a th:href="@{'/page/' + ${currentPage} + '?sortField=dilSecenekleri&sortDir=' + ${reverseSortDir}}">
+							Film Dil Secenekleri</a>
+					</th>
+					<th>
+					<a th:href="@{'/page/' + ${currentPage} + '?sortField=aciklama&sortDir=' + ${reverseSortDir}}">
+							Film Aciklama</a>
+					</th>
+					<th> Degerlendirme </th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="filmler : ${filmListesi}">
+					<td th:text="${filmler.ad}"></td>
+					<td th:text="${filmler.yayinYili}"></td>
+					<td th:text="${filmler.tur}"></td>
+					<td th:text="${filmler.model}"></td>
+					<td th:text="${filmler.dilSecenekleri}"></td>
+					<td th:text="${filmler.aciklama}"></td>
+					<td> <a th:href="@{/guncellemeFormunuGoster/{id}(id=${filmler.id})}" class="btn btn-primary">Guncelle</a>
+					<div>&nbsp;</div>
+					    <a th:href="@{/filmSilme/{id}(id=${filmler.id})}" class="btn btn-danger">Sil</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<div th:if = "${totalPages > 1}">
+			<div class = "row col-sm-10">
+				<div class = "col-sm-2">
+					Total Rows: [[${totalItems}]] 
+				</div>
+				<div class = "col-sm-1">
+					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+						<a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+					</span>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</body>
+</html>
